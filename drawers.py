@@ -1,5 +1,5 @@
 import RPi.GPIO as GPIO
-from flask import Flask, render_template, request
+from flask import Flask, jsonify
 app = Flask(__name__)
 
 GPIO.setmode(GPIO.BCM)
@@ -23,16 +23,14 @@ def action(changePin, action):
         GPIO.output(changePin, GPIO.HIGH)
     if action == "off":
         GPIO.output(changePin, GPIO.LOW)
-
-    # For each pin, read the pin state and store it in the pins dictionary:
-    for pin in pins:
-        pins[pin]['state'] = GPIO.input(pin)
+    return 'OK'
 
 # Reset all pins
 @app.route("/reset")
 def reset():
     for pin in pins:
         GPIO.output(pin, GPIO.LOW)
+    return 'OK'
 
 
 if __name__ == "__main__":
