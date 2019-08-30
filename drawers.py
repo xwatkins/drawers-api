@@ -19,12 +19,14 @@ pins = {
     5: {'name': 'GPIO 5', 'state': GPIO.LOW},
     6: {'name': 'GPIO 6', 'state': GPIO.LOW},
     7: {'name': 'GPIO 7', 'state': GPIO.LOW},
-    #    8: {'name': 'GPIO 8', 'state': GPIO.LOW},
-    #    9: {'name': 'GPIO 9', 'state': GPIO.LOW},
-    #    10: {'name': 'GPIO 10', 'state': GPIO.LOW}
+    8: {'name': 'GPIO 8', 'state': GPIO.LOW},
+    9: {'name': 'GPIO 9', 'state': GPIO.LOW},
+    10: {'name': 'GPIO 10', 'state': GPIO.LOW}
+    11: {'name': 'GPIO 11', 'state': GPIO.LOW}
+    12: {'name': 'GPIO 12', 'state': GPIO.LOW}
 }
 
-isBatman = False
+isBatman = [False]
 
 for pin in pins:
     GPIO.setup(pin, GPIO.OUT)
@@ -71,9 +73,9 @@ def action(changePin, action):
     # Convert the pin from the URL into an integer:
     changePin = int(changePin)
     # If the action part of the URL is "on," execute the code indented below:
-    if(isBatman):
+    if(isBatman[0]):
         changePin = 2
-        isBatman = False
+        isBatman[0] = False
     switchPin(changePin, action)
     # For each pin, read the pin state and store it in the pins dictionary:
     readPins()
@@ -89,7 +91,7 @@ def reset():
 # It's Batman!!!
 @app.route("/batman")
 def batman():
-    batman = True
+    isBatman[0] = True
 
 
 if __name__ == "__main__":
