@@ -21,8 +21,8 @@ pins = {
     7: {'name': 'GPIO 7', 'state': GPIO.LOW},
     8: {'name': 'GPIO 8', 'state': GPIO.LOW},
     9: {'name': 'GPIO 9', 'state': GPIO.LOW},
-    10: {'name': 'GPIO 10', 'state': GPIO.LOW}
-    11: {'name': 'GPIO 11', 'state': GPIO.LOW}
+    10: {'name': 'GPIO 10', 'state': GPIO.LOW},
+    11: {'name': 'GPIO 11', 'state': GPIO.LOW},
     12: {'name': 'GPIO 12', 'state': GPIO.LOW}
 }
 
