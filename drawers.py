@@ -24,6 +24,8 @@ pins = {
     #    10: {'name': 'GPIO 10', 'state': GPIO.LOW}
 }
 
+isBatman = False
+
 for pin in pins:
     GPIO.setup(pin, GPIO.OUT)
     GPIO.output(pin, GPIO.LOW)
@@ -69,6 +71,9 @@ def action(changePin, action):
     # Convert the pin from the URL into an integer:
     changePin = int(changePin)
     # If the action part of the URL is "on," execute the code indented below:
+    if(isBatman):
+        changePin = 2
+        isBatman = False
     switchPin(changePin, action)
     # For each pin, read the pin state and store it in the pins dictionary:
     readPins()
@@ -80,6 +85,11 @@ def reset():
     allOff()
     readPins()
     return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
+
+# It's Batman!!!
+@app.route("/batman")
+def batman():
+    batman = True
 
 
 if __name__ == "__main__":
