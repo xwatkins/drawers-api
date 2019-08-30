@@ -4,6 +4,7 @@ import time
 import random
 import json
 import RPi.GPIO as GPIO
+from collections import defaultdict
 import sys
 print(sys.path)
 app = Flask(__name__)
@@ -25,6 +26,8 @@ pins = {
     11: {'name': 'GPIO 11', 'state': GPIO.LOW},
     12: {'name': 'GPIO 12', 'state': GPIO.LOW}
 }
+
+counts = defaultdict(int)
 
 isBatman = [False]
 
@@ -79,6 +82,7 @@ def action(changePin, action):
     switchPin(changePin, action)
     # For each pin, read the pin state and store it in the pins dictionary:
     readPins()
+    counts[changePin] += 1
     return json.dumps({'success': True, 'pin': changePin}), 200, {'ContentType': 'application/json'}
 
 # Reset all pins
@@ -93,6 +97,11 @@ def reset():
 def batman():
     isBatman[0] = True
     return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
+
+# Get the counts for how often @app.route("/<changePin>/<action>") is visited.
+@app.route("/counts")
+def getCounts():
+    return json.dumps({'success': True, 'counts': counts}), 200, {'ContentType': 'application/json'}
 
 
 if __name__ == "__main__":
