@@ -79,7 +79,7 @@ def action(changePin, action):
     switchPin(changePin, action)
     # For each pin, read the pin state and store it in the pins dictionary:
     readPins()
-    return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
+    return json.dumps({'success': True, 'pin': changePin}), 200, {'ContentType': 'application/json'}
 
 # Reset all pins
 @app.route("/reset")
@@ -92,6 +92,7 @@ def reset():
 @app.route("/batman")
 def batman():
     isBatman[0] = True
+    return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
 
 if __name__ == "__main__":
