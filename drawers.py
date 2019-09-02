@@ -104,5 +104,14 @@ def getCounts():
     return json.dumps({'success': True, 'counts': counts}), 200, {'ContentType': 'application/json'}
 
 
+@app.route("/test")
+def test():
+    for pin in pins:
+        GPIO.output(pin, GPIO.HIGH)
+        time.sleep(2)
+        GPIO.output(pin, GPIO.LOW)
+    return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
+
+
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=8001, debug=True)
